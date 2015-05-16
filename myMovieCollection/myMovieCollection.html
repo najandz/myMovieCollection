@@ -1,0 +1,70 @@
+<head>
+  <title>My Movie Collection</title>
+</head>
+
+<body>
+  <div id="wrapper">
+  {{>login}}
+  {{> newMovie}}
+  {{> movies}}
+
+</div>
+</body>
+
+<template name="newMovie">
+    <h1>My Movie Collection</h1>
+
+	<input type="button" value="New Movie" class="new_movie styled-button">
+	<div class="movie_form">
+
+		<input type="text" class="movie_title" placeholder="Movie Title">
+
+		<input type="date" class="movie_year" placeholder="Release Year">
+     
+		  {{>dropdownGenre}}
+
+		<input type="submit" class="movie_submit styled-button right" value="Add/Update Movie">
+
+	</div>
+</template>
+
+<template name="movies">
+	<table id="moviesTable" class="sortby-{{sort}}">
+		<tr>
+			<th>Title<a href="#" id="title_header">^</a></th>
+			<th><a href="#" id="year_header">^</a>Release Year</th>
+			<th>Genre</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+
+		{{#each movies}}
+		<tr>
+			<td>{{title}}</td>
+			<td>{{releaseYear}}</td>
+			<td>{{genre}}</td>
+			<td><input type="submit" class="edit styled-button" value="Edit"></td>
+			<td><input type="submit" class="delete styled-button" value="Delete"></td>
+		<!--<td><a href="#" class="delete">Delete</a></td> -->
+		</tr>
+		{{/each}}
+	</table>
+</template>
+
+<template name="dropdownGenre">
+  <select class="header dropdown" id="movie_genre">
+    {{#each genres}}
+      <option class="genres">{{this}}</option>
+    {{/each}}
+  </select>
+</template>
+
+<template name="login">
+   {{#if currentUser}}
+       {{currentUser.services.facebook.name}} -
+       {{currentUser.services.facebook.gender}}
+       <button id="logout" class="styled-button">Logout</button>
+   {{else}}
+       <button id="facebook-login" class="styled-button"> Login with Facebook</button>
+   {{/if}}
+</template>
